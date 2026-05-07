@@ -64,7 +64,7 @@ hide:
 ## Certifications
 
 - [Advanced QGIS Certification](https://certification.qgis.org/en/certificate/QGIS-8944/) — Spatial Thoughts, 2026
-- [Basics of Remote Sensing, GIS and GNSS](https://certificate.iirs.gov.in/) — IIRS, Indian Institute of Remote Sensing, 2025 *Enrolment No.: 20251642773371* *UID: 2bf672c9da987c031bd66bb819497d39*
+- [Basics of Remote Sensing, GIS and GNSS](https://certificate.iirs.gov.in/) — IIRS, Indian Institute of Remote Sensing, 2025 *(Enrolment No.: 20251642773371)* *(UID: 2bf672c9da987c031bd66bb819497d39)*
 - [Working with Earth Engine Data in QGIS](http://spatialthoughts.com/verify) — Spatial Thoughts, 2025 *(ID: ST-GEE-882)*
 - [Mapping and Data Visualization with Python](http://spatialthoughts.com/verify) — Spatial Thoughts, 2025 *(ID: ST-PYTHON-847)*
 
