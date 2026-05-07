@@ -18,16 +18,15 @@ A selection of my geospatial projects. Click any card to see the full write-up.
 <div class="grid" markdown>
 
 <div class="project-card" markdown>
-![](../assets/images/placeholder-project.png)
+![](../assets/images/connectivity.png)
 
-**[Sample Project](sample-project.md)**
+**[Assessment of Active channel belt Extinct of Mahanadi River](river-fragmentation.md)**
 
-[YOUR PROJECT DESCRIPTION — one or two sentences: what you did, what data you used,
-and what you found or built.]
+A multi-decadal geospatial analysis of active channel belt dynamics along the Mahanadi River in Cuttack district, Odisha, using Google Earth Engine and 30 years of Landsat satellite imagery to detect, quantify, and interpret fluvial geomorphic change.
 
-`[TOOL 1]` `[TOOL 2]` `[TOOL 3]`
+`[Google Earth Engine]` `[ArcGIS pro]` `[Python]`
 
-[View Project →](sample-project.md){ .md-button }
+[View Project →](river-fragmentation.md){ .md-button }
 </div>
 
 <div class="project-card" markdown>
