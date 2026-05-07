@@ -21,7 +21,7 @@ Feel free to reach out through any of the channels below.
 
 | | |
 |---|---|
-| :material-email: **Email** | [your-email@example.com](mailto:manaspatra1999@gmail.com) |
+| :material-email: **Email** | [manaspatra1999@gmail.com](mailto:manaspatra1999@gmail.com) |
 | :fontawesome-brands-github: **GitHub** | [github.com/manasthepatra/](https://github.com/manasthepatra/) |
 | :fontawesome-brands-linkedin: **LinkedIn** | [linkedin.com/in/manas-ranjan-patra-4b1b88226/](https://linkedin.com/in/manas-ranjan-patra-4b1b88226/) |
 
