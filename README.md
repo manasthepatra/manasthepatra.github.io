@@ -1,12 +1,5 @@
-# Manas's Portfolio
+# Manas Ranjan Patra — Portfolio
 
- This is the repository for my portfolio website. The portfolio is hosted at https://manasthepatra.github.io/
+The personal portfolio of Manas Ranjan Patra, a geologist-turned-geospatial data scientist. It is published at [manasthepatra.github.io](https://manasthepatra.github.io/).
 
- This website is built using the following tools
- 
-* MkDocs
-* GitHub Pages
-* GitHub Actions
-
-> [!TIP]
-> You can get the portfolio template from [Spatial Thoughts](https://github.com/spatialthoughts/portfolio-website-template)
+The site is dependency-free HTML, CSS, and JavaScript. GitHub Actions deploys the contents of `docs/` to GitHub Pages whenever `main` is updated.

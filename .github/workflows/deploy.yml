@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
@@ -14,18 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Publish static site
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          python-version: "3.11"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Preserve CNAME if present
-        run: |
-          if [ -f CNAME ]; then
-            cp CNAME docs/CNAME
-          fi
-
-      - name: Deploy
-        run: mkdocs gh-deploy --force
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
