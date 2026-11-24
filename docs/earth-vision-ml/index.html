@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A team project that classifies Sentinel-2 imagery into built-up, vegetation, water and barren land with Random Forest, XGBoost and logistic regression, served through a FastAPI and React map.">
+  <meta name="theme-color" content="#101916">
+  <title>Earth Vision ML — Manas Ranjan Patra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="monogram" href="../" aria-label="Manas Patra, home">MP<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="../#work">Work</a><a href="../#projects">Projects</a><a href="../#practice">Practice</a><a href="../#about">About</a><a href="../#contact">Contact</a><a class="nav-resume" href="../assets/manas-CV.pdf" download>Resume <span aria-hidden="true">↓</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="case-hero contour-field">
+      <div class="case-index"><span>Case study / 06</span><span>Pune, India · 2026</span></div>
+      <p class="kicker">Team project · Spatial Modelling · Symbiosis Institute of Geoinformatics</p>
+      <h1>Earth<br><em>Vision ML.</em></h1>
+      <div class="case-intro"><p>Satellite imagery, machine learning and an interactive map: choose a view and a model, and get built-up, vegetation, water and barren layers without downloading the archive. A team project with Abinash and Piyush.</p><a class="button button-primary" href="#results">See the results <span aria-hidden="true">↘</span></a></div>
+      <figure class="case-figure"><img src="../assets/images/projects/earthvision-models.webp" alt="Slide titled Three models, one held-out test, describing Random Forest, XGBoost and logistic regression"><figcaption>Three models, one held-out test: the comparison slide from the team presentation.</figcaption></figure>
+    </section>
+    <section class="case-section case-summary" aria-labelledby="situation-title">
+      <p class="eyebrow">01 / Situation</p>
+      <div><h2 id="situation-title">From pixels<br>to a map layer.</h2><p class="lead-copy">Land-cover mapping supports planning, monitoring and water management, but manual interpretation is slow. The goal was one interactive request that goes from Earth Engine imagery to coloured class layers, and to compare non-linear models against a linear baseline on the same data.</p></div>
+      <div class="fact-grid"><article><span class="meta">Classes</span><strong>Built-up · vegetation ·<br>water · barren</strong></article><article><span class="meta">Inputs</span><strong>5 Sentinel-2 bands<br>+ 3 indices</strong></article><article><span class="meta">Stack</span><strong>Earth Engine · XGBoost ·<br>FastAPI · React</strong></article></div>
+    </section>
+    <section class="case-section approach-section" aria-labelledby="approach-title">
+      <div class="section-heading"><p class="eyebrow">02 / Approach</p><h2 id="approach-title">Labels, features,<br>models, map.</h2></div>
+      <ol class="approach-list"><li><span>01</span><div><h3>Frame the labels</h3><p>ESA WorldCover v200 (2021) is collapsed into four classes; other categories are masked out. 2,000 pixels were sampled at 30 m over a ~350 km² Pune tile. In the team presentation I covered the problem framing, study region, label mapping and workflow.</p></div></li><li><span>02</span><div><h3>Build the features</h3><p>A harmonised Sentinel-2 L2A median composite from scenes under 10% cloud gives bands B2, B3, B4, B8 and B11, plus NDVI, NDWI and NDBI, so each pixel carries eight values.</p></div></li><li><span>03</span><div><h3>Train and compare</h3><p>Random Forest (100 trees, depth 15), XGBoost (100 rounds, depth 6) and a scaled logistic regression, all fitted on the same 1,600 training pixels and scored on the same 400.</p></div></li><li><span>04</span><div><h3>Serve it</h3><p>A React + Vite + Leaflet client posts the map extent and model to a FastAPI endpoint. The service pulls thumbnails from Earth Engine, classifies every pixel with a saved model and returns four transparent overlays and class shares.</p></div></li></ol>
+    </section>
+    <section id="results" class="case-section results-section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">03 / Results</p><h2 id="results-title">Trees beat<br>the baseline.</h2></div>
+      <div class="metric-row"><div class="metric"><strong>95.8%</strong><p>XGBoost agreement with WorldCover on 400 held-out pixels (≈95% interval 93.8–97.8)</p></div><div class="metric"><strong>94.2%</strong><p>Random Forest: within error of XGBoost, so the ranking between the two is unresolved</p></div><div class="metric"><strong>83.1%</strong><p>logistic regression baseline: the tree ensembles gain over 11 points</p></div><div class="metric"><strong>113 ms</strong><p>XGBoost classifying a 65,536-pixel scene, median of three runs (excludes Earth Engine time)</p></div></div>
+      <p class="results-note"><strong>NDWI dominates XGBoost.</strong> The gain-based importance puts NDWI at 0.51, far above any other feature, while Random Forest spreads its reliance across bands. These are within-model scores, not causal effects.</p>
+      
+      <div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/earthvision-importance.webp" alt="Slide with two bar charts of feature importance for XGBoost and Random Forest" loading="lazy"><figcaption>Feature importance for the two tree models, from the team presentation.</figcaption></figure></div>
+    </section>
+    <section class="case-section data-section" aria-labelledby="data-title">
+      <p class="eyebrow">04 / Data &amp; method</p>
+      <div class="data-layout"><h2 id="data-title">Proxy labels,<br>stated as proxies.</h2><div><p class="lead-copy">Accuracy here means agreement with ESA WorldCover, not independent field verification, and the team’s report and presentation say so on every results slide.</p><dl class="data-list"><div><dt>Imagery</dt><dd>Sentinel-2 L2A via Google Earth Engine</dd></div><div><dt>Labels</dt><dd>ESA WorldCover v200 (2021)</dd></div><div><dt>Models</dt><dd>scikit-learn · XGBoost</dd></div><div><dt>Service</dt><dd>FastAPI · joblib models</dd></div><div><dt>Client</dt><dd>React · Vite · Leaflet</dd></div></dl><ul class="tag-list" style="margin-top:1.5rem"><li>Sentinel-2</li><li>Earth Engine</li><li>Random Forest</li><li>XGBoost</li><li>FastAPI</li><li>React</li><li>Leaflet</li></ul></div></div>
+    </section>
+    <section class="case-section reflection-section" aria-labelledby="reflection-title">
+      <p class="eyebrow">05 / Limits &amp; honesty</p>
+      <div class="reflection-layout"><h2 id="reflection-title">What it does<br>not claim.</h2><div><p>From the team’s own limitations slide:</p><ul class="limits-list"><li>Evaluation uses proxy labels from one Pune tile, a random split and only 400 test pixels; neighbouring pixels can fall in both sets.</li><li>No confusion matrix or per-class scores were reported, so overall accuracy can hide weakness on a rarer class.</li><li>Training uses floating-point reflectance, while inference reconstructs reflectance from 8-bit thumbnails; that shift has not been measured.</li><li>The long-window median composite is compared with a 2021 label map, and the statistics card omits the barren share.</li></ul></div></div>
+    </section>
+  </main>
+  <footer class="site-footer contour-field"><p class="eyebrow">Next / Field Signal</p><h2>Back to the<br>full portfolio.</h2><div class="case-next"><a class="footer-email" href="../#projects">See all projects <span aria-hidden="true">↗</span></a></div><div class="footer-meta"><a href="../#projects">← All projects</a><a href="../">Portfolio</a><a href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div></footer>
+</body>
+</html>

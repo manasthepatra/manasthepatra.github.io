@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/polish.css">
+    <link rel="stylesheet" href="assets/css/projects.css">
     <script src="assets/js/main.js" defer></script>
   </head>
   <body>
@@ -22,6 +23,7 @@
       </button>
       <nav id="site-nav" aria-label="Primary navigation">
         <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
         <a href="#practice">Practice</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
@@ -61,8 +63,65 @@
         </article>
       </section>
 
+      <section id="projects" class="section projects-section" aria-labelledby="projects-title">
+        <div class="section-heading"><p class="eyebrow">03 / MORE PROJECTS</p><h2 id="projects-title">Built across<br>Semester 3.</h2></div>
+        <p class="projects-lede">Five projects from my M.Sc. at the Symbiosis Institute of Geoinformatics, from street-network analysis to deep learning. Each case study states what the work does not claim as plainly as what it does.</p>
+        <div class="project-grid">
+          <article class="project-card">
+            <figure><img src="assets/images/projects/walkability-map.webp" alt="Screenshot of a hexagon map of walking access to healthcare in central Pune" loading="lazy"></figure>
+            <div class="project-card-body">
+              <p class="meta">02 / WEB GIS / 2026</p>
+              <h3>Who Can’t Walk to Healthcare?</h3>
+              <p>A PostGIS, GeoServer and MapLibre Web GIS showing that straight-line buffers overstate walkable coverage in central Pune by about 27%.</p>
+              <ul class="tag-list"><li>PostGIS</li><li>H3</li><li>OSMnx</li><li>PMTiles</li></ul>
+              <a class="card-link" href="walkability/">Read case study <span aria-hidden="true">↘</span></a>
+            </div>
+          </article>
+          <article class="project-card">
+            <figure><img src="assets/images/projects/hyperlocal-dashboard.webp" alt="Dashboard with forecast revenue, liquidity shock probability and a merchant map" loading="lazy"></figure>
+            <div class="project-card-body">
+              <p class="meta">03 / ML CAPSTONE / 2026</p>
+              <h3>Hyper-Local Merchant Intelligence</h3>
+              <p>30-day cash-flow forecasts with conformal bands, 500 m peer benchmarking and SHAP-grounded advice for small Indian merchants. 35.7% WAPE per day, 11.6% on the 30-day total.</p>
+              <ul class="tag-list"><li>LightGBM</li><li>PyTorch</li><li>SHAP</li><li>Streamlit</li></ul>
+              <a class="card-link" href="hyperlocal-merchants/">Read case study <span aria-hidden="true">↘</span></a>
+            </div>
+          </article>
+          <article class="project-card">
+            <figure><img src="assets/images/projects/habitat-map.webp" alt="Grid map of Pune wards in the Habitat Watch web app" loading="lazy"></figure>
+            <div class="project-card-body">
+              <p class="meta">04 / CITIZEN SCIENCE / 2026</p>
+              <h3>Pune Habitat Watch</h3>
+              <p>A citizen-science Web GIS prototype with consent-aware reporting, reviewer workflow, satellite suitability layers and OGC services. Local and synthetic by design, tested end to end.</p>
+              <ul class="tag-list"><li>Django</li><li>PostGIS</li><li>GeoServer</li><li>OpenLayers</li></ul>
+              <a class="card-link" href="pune-habitat-watch/">Read case study <span aria-hidden="true">↘</span></a>
+            </div>
+          </article>
+          <article class="project-card">
+            <figure><img src="assets/images/projects/eurosat-confusion.webp" alt="Confusion matrix for EfficientNet-B0 on EuroSAT" loading="lazy"></figure>
+            <div class="project-card-body">
+              <p class="meta">05 / DEEP LEARNING / 2026</p>
+              <h3>EuroSAT: Eight Models, One Split</h3>
+              <p>A controlled comparison of a scratch CNN and seven pretrained architectures on 27,000 Sentinel-2 patches: 80.1% versus up to 98.1% test accuracy.</p>
+              <ul class="tag-list"><li>PyTorch</li><li>Transfer learning</li><li>Sentinel-2</li></ul>
+              <a class="card-link" href="eurosat-benchmark/">Read case study <span aria-hidden="true">↘</span></a>
+            </div>
+          </article>
+          <article class="project-card">
+            <figure><img src="assets/images/projects/earthvision-importance.webp" alt="Feature importance chart for XGBoost and Random Forest land-cover models" loading="lazy"></figure>
+            <div class="project-card-body">
+              <p class="meta">06 / TEAM PROJECT / 2026</p>
+              <h3>Earth Vision ML</h3>
+              <p>Sentinel-2 land-cover classification served through FastAPI and a React map. XGBoost reaches 95.8% agreement with WorldCover against 83.1% for the linear baseline.</p>
+              <ul class="tag-list"><li>Earth Engine</li><li>XGBoost</li><li>FastAPI</li><li>React</li></ul>
+              <a class="card-link" href="earth-vision-ml/">Read case study <span aria-hidden="true">↘</span></a>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section id="practice" class="section practice-section" aria-labelledby="practice-title">
-        <div class="section-heading"><p class="eyebrow">03 / PRACTICE</p><h2 id="practice-title">From signal to decision.</h2></div>
+        <div class="section-heading"><p class="eyebrow">04 / PRACTICE</p><h2 id="practice-title">From signal to decision.</h2></div>
         <div class="capabilities">
           <article><span>01</span><h3>Observe</h3><p>Read land, climate, and terrain through Earth observation, climate reanalysis, and field-informed context.</p><p class="meta">EARTH OBSERVATION · REMOTE SENSING</p></article>
           <article><span>02</span><h3>Analyse</h3><p>Build reproducible spatial workflows that move from raw signals to interpretable patterns and models.</p><p class="meta">DATA SCIENCE · SPATIAL STATISTICS</p></article>
@@ -71,19 +130,19 @@
       </section>
 
       <section id="about" class="section about-section" aria-labelledby="about-title">
-        <div class="section-heading"><p class="eyebrow">04 / ABOUT</p><h2 id="about-title">Grounded in geology.<br>Oriented to impact.</h2></div>
+        <div class="section-heading"><p class="eyebrow">05 / ABOUT</p><h2 id="about-title">Grounded in geology.<br>Oriented to impact.</h2></div>
         <div class="about-copy"><p>I am pursuing an M.Sc. in Data Science &amp; Spatial Analytics (Geointelligence) at Symbiosis Institute of Geoinformatics, Pune. My earlier training in applied geology gives my data work a practical relationship with the physical world.</p><p>My work sits where environmental processes, spatial data, and public decisions meet. I am interested in teams building resilient infrastructure, managing risk, and making environmental intelligence usable.</p><div class="timeline"><article><p class="meta">MAY–JUN 2026 · PUNE</p><h3>Summer Intern · Climate Lab, IITM</h3></article><article><p class="meta">2025–2027 · PUNE</p><h3>M.Sc. Data Science &amp; Spatial Analytics</h3></article><article><p class="meta">MAY–JUN 2023 · HYDERABAD</p><h3>Research Intern · CSIR-NGRI</h3></article></div></div>
       </section>
 
       <section class="section credentials-section" aria-labelledby="credentials-title">
-        <div class="section-heading"><p class="eyebrow">05 / TOOLKIT &amp; TRAINING</p><h2 id="credentials-title">Methods, made practical.</h2></div>
-        <div class="toolkit-grid"><article><p class="meta">Language &amp; analysis</p><p>Python · R · SQL · GeoPandas · Rasterio · GDAL/OGR · xarray · PySAL · scikit-learn · NumPy · Pandas · Matplotlib</p></article><article><p class="meta">GIS &amp; earth observation</p><p>Google Earth Engine · ArcGIS Pro · QGIS · GeoServer · Landsat · Sentinel · ERA5 / ERA5-Land</p></article><article><p class="meta">Data &amp; delivery</p><p>PostgreSQL / PostGIS · DuckDB · Git / GitHub · VS Code · Docker · Azure</p></article></div>
+        <div class="section-heading"><p class="eyebrow">06 / TOOLKIT &amp; TRAINING</p><h2 id="credentials-title">Methods, made practical.</h2></div>
+        <div class="toolkit-grid"><article><p class="meta">Language &amp; analysis</p><p>Python · R · SQL · GeoPandas · Rasterio · GDAL/OGR · xarray · PySAL · scikit-learn · PyTorch · LightGBM · XGBoost · SHAP · H3 · NumPy · Pandas · Matplotlib</p></article><article><p class="meta">GIS &amp; earth observation</p><p>Google Earth Engine · ArcGIS Pro · QGIS · GeoServer · MapLibre GL · OpenLayers · Leaflet · Landsat · Sentinel · ERA5 / ERA5-Land</p></article><article><p class="meta">Data &amp; delivery</p><p>PostgreSQL / PostGIS · DuckDB · Django · FastAPI · React · Streamlit · Git / GitHub · GitHub Actions · VS Code · Docker · Azure</p></article></div>
         <div class="certifications"><p class="meta">Selected certifications</p><ul><li>Agentic Coding for Geospatial — Spatial Thoughts</li><li>Cloud Native Remote Sensing with Python — Spatial Thoughts</li><li>Advanced QGIS — Spatial Thoughts</li><li>Earth Engine in QGIS — Spatial Thoughts</li><li>Mapping &amp; Data Visualization with Python — Spatial Thoughts</li><li>Basics of Remote Sensing, GIS and GNSS — IIRS</li></ul></div>
       </section>
     </main>
 
     <footer id="contact" class="site-footer contour-field">
-      <p class="eyebrow">06 / CONTACT</p><h2>Have a question<br>worth mapping?</h2>
+      <p class="eyebrow">07 / CONTACT</p><h2>Have a question<br>worth mapping?</h2>
       <a class="footer-email" href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com <span aria-hidden="true">↗</span></a>
       <div class="footer-meta"><span>Pune, India</span><a href="tel:+917735310363">+91 7735310363</a><a href="https://github.com/manasthepatra/" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://linkedin.com/in/manas-ranjan-patra-4b1b88226/" target="_blank" rel="noreferrer">LinkedIn ↗</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div>
     </footer>

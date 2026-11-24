@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An end-to-end ML system that forecasts 30-day cash flow for small Indian merchants, benchmarks them against 500 m peers, and generates SHAP-grounded advice. Built on transaction logs, OpenStreetMap and weather data.">
+  <meta name="theme-color" content="#101916">
+  <title>Hyper-Local Merchant Intelligence — Manas Ranjan Patra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="monogram" href="../" aria-label="Manas Patra, home">MP<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="../#work">Work</a><a href="../#projects">Projects</a><a href="../#practice">Practice</a><a href="../#about">About</a><a href="../#contact">Contact</a><a class="nav-resume" href="../assets/manas-CV.pdf" download>Resume <span aria-hidden="true">↓</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="case-hero contour-field">
+      <div class="case-index"><span>Case study / 03</span><span>India · 8 cities · 2026</span></div>
+      <p class="kicker">Hyper-Local Merchant Intelligence Engine · M.Sc. capstone · Banking &amp; Finance</p>
+      <h1>Merchant<br><em>Intelligence.</em></h1>
+      <div class="case-intro"><p>An end-to-end ML system that turns transaction logs, OpenStreetMap context and weather into a 30-day cash-flow forecast, a peer benchmark and grounded advice for small Indian merchants.</p><a class="button button-primary" href="#results">See the results <span aria-hidden="true">↘</span></a></div>
+      <figure class="case-figure"><img src="../assets/images/projects/hyperlocal-dashboard.webp" alt="Dark dashboard showing forecast revenue, downside, liquidity shock probability and a map of nearby merchants"><figcaption>The Streamlit command centre for one merchant: expected 30-day revenue, downside, liquidity-shock probability and peer score. Merchant panel is semi-synthetic (see limits).</figcaption></figure>
+    </section>
+    <section class="case-section case-summary" aria-labelledby="situation-title">
+      <p class="eyebrow">01 / Situation</p>
+      <div><h2 id="situation-title">Thin cash,<br>no analyst.</h2><p class="lead-copy">A neighbourhood kirana store cannot hire a data team. The engine answers three questions for each merchant: what will cash flow look like over the next 30 days, how do I compare with similar shops within 500 m, and what should I do about it?</p></div>
+      <div class="fact-grid"><article><span class="meta">Transactions</span><strong>30.9 M<br>Elo records</strong></article><article><span class="meta">Panel</span><strong>2,060 merchants<br>in 8 cities</strong></article><article><span class="meta">Features</span><strong>70 · demand, weather,<br>festival, OSM context</strong></article></div>
+    </section>
+    <section class="case-section approach-section" aria-labelledby="approach-title">
+      <div class="section-heading"><p class="eyebrow">02 / Approach</p><h2 id="approach-title">Predict, benchmark,<br>prescribe.</h2></div>
+      <ol class="approach-list"><li><span>01</span><div><h3>Predict cash flow</h3><p>Direct multi-horizon 30-day forecasts from LightGBM, XGBoost (CUDA), CatBoost, N-HiTS and a Bi-GRU with attention, blended in a convex stacked ensemble. Conformal calibration gives 90% prediction bands, and a cost-sensitive classifier flags liquidity shocks.</p></div></li><li><span>02</span><div><h3>Benchmark against peers</h3><p>Merchants are clustered on operating context with UMAP + K-Means (benchmarked against Ward, DBSCAN and HDBSCAN; 14 clusters selected), then compared with peers using robust z-scores and k-anonymity ≥ 5.</p></div></li><li><span>03</span><div><h3>Prescribe, with guard rails</h3><p>TreeSHAP drivers feed a model-simulated action library. A local Ollama LLM (qwen2.5:7b) words the advice, and a numeric grounding guard checks the numbers in it against the analysis.</p></div></li></ol>
+    </section>
+    <section id="results" class="case-section results-section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">03 / Results</p><h2 id="results-title">Accurate where<br>it matters.</h2></div>
+      <div class="metric-row"><div class="metric"><strong>35.7%</strong><p>WAPE for the stacked ensemble on the hidden 30-day test window, per merchant-day (R² 0.88)</p></div><div class="metric"><strong>11.6%</strong><p>WAPE on each merchant’s 30-day total — the figure a cash-flow decision actually uses</p></div><div class="metric"><strong>90.1%</strong><p>empirical coverage of the nominal 90% conformal band (LightGBM quantile; 88.0% before calibration)</p></div><div class="metric"><strong>0.85</strong><p>Moran’s I of the OSM footfall index: strong spatial clustering, the case for a hyper-local approach</p></div></div>
+      <p class="results-note"><strong>Ablations keep the claims honest.</strong> Dropping the festival/payday calendar raised festival-day WAPE from 47.0% to 50.3%; dropping weather or OSM features barely moved the overall score.</p>
+      
+      <div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/hyperlocal-fan-charts.webp" alt="Three line charts of daily revenue with forecast and shaded prediction band" loading="lazy"><figcaption>Hidden 30-day test window for three merchants. Blue: ensemble forecast. Shaded: 90% conformal band. Black: actual.</figcaption></figure></div><div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/hyperlocal-merchant-map.webp" alt="Four scatter maps of merchants in Mumbai, Delhi, Bengaluru and Hyderabad" loading="lazy"><figcaption>Merchants anchored on real OpenStreetMap storefronts in four of the eight cities; marker size is mean daily revenue.</figcaption></figure></div>
+    </section>
+    <section class="case-section data-section" aria-labelledby="data-title">
+      <p class="eyebrow">04 / Data &amp; method</p>
+      <div class="data-layout"><h2 id="data-title">A digital twin,<br>labelled as one.</h2><div><p class="lead-copy">Elo anonymises currency, category and geography, and the public Indian datasets are synthetic. So the merchant panel is a semi-synthetic digital twin: daily demand dynamics are real, money is calibrated to INR by quantile mapping, and merchants are anchored to real OSM storefronts.</p><dl class="data-list"><div><dt>Demand</dt><dd>Elo merchant transactions (Kaggle)</dd></div><div><dt>Context</dt><dd>OpenStreetMap · Open-Meteo</dd></div><div><dt>Models</dt><dd>LightGBM · XGBoost · CatBoost · PyTorch</dd></div><div><dt>Explainability</dt><dd>TreeSHAP · Ollama</dd></div><div><dt>Delivery</dt><dd>Streamlit · decks · viva guides</dd></div></dl><ul class="tag-list" style="margin-top:1.5rem"><li>LightGBM</li><li>XGBoost</li><li>CatBoost</li><li>PyTorch</li><li>SHAP</li><li>UMAP</li><li>Conformal prediction</li><li>Streamlit</li><li>Ollama</li></ul></div></div>
+    </section>
+    <section class="case-section reflection-section" aria-labelledby="reflection-title">
+      <p class="eyebrow">05 / Limits &amp; honesty</p>
+      <div class="reflection-layout"><h2 id="reflection-title">What it does<br>not claim.</h2><div><p>The report states these in its methodology section; they belong here too:</p><ul class="limits-list"><li>Weather, festival, competition and promotion responses are injected through a documented response function, so those effects are by design, not discoveries. Placebo and negative-control tests separate real from injected effects.</li><li>Merchant-day revenue is noisy (35.7% WAPE); the forecast earns its keep when aggregated to the 30-day total (11.6%).</li><li>The merchants are not real businesses. The system shows the method working, not an audited result for any shop.</li></ul></div></div>
+    </section>
+  </main>
+  <footer class="site-footer contour-field"><p class="eyebrow">Next / Case study 04</p><h2>Pune Habitat Watch</h2><div class="case-next"><a class="footer-email" href="../pune-habitat-watch/">Read the case study <span aria-hidden="true">↗</span></a></div><div class="footer-meta"><a href="../#projects">← All projects</a><a href="../">Portfolio</a><a href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div></footer>
+</body>
+</html>

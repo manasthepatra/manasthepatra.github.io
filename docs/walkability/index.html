@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A Web GIS for central Pune that measures who cannot reach healthcare on foot within 15 minutes, using street-network analysis, H3 hexagons, PostGIS, GeoServer and PMTiles.">
+  <meta name="theme-color" content="#101916">
+  <title>Who Can’t Walk to Healthcare? — Manas Ranjan Patra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="monogram" href="../" aria-label="Manas Patra, home">MP<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="../#work">Work</a><a href="../#projects">Projects</a><a href="../#practice">Practice</a><a href="../#about">About</a><a href="../#contact">Contact</a><a class="nav-resume" href="../assets/manas-CV.pdf" download>Resume <span aria-hidden="true">↓</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="case-hero contour-field">
+      <div class="case-index"><span>Case study / 02</span><span>Pune, India · 2026</span></div>
+      <p class="kicker">Web GIS · Central Pune · Semester 3</p>
+      <h1>Who can’t walk<br>to <em>healthcare?</em></h1>
+      <div class="case-intro"><p>A planning question turned into a full Web GIS: which residents of central Pune cannot reach a healthcare service on foot within 15 minutes, and how badly do straight-line buffers get the answer wrong?</p><a class="button button-primary" href="#results">See the results <span aria-hidden="true">↘</span></a></div>
+      <figure class="case-figure"><img src="../assets/images/projects/walkability-map.webp" alt="Map of central Pune with hexagons coloured by walking distance to the nearest healthcare service"><figcaption>Walking distance to the nearest healthcare service on H3 hexagons (resolution 9), served as vector tiles from one PMTiles file. Basemap and data © OpenStreetMap contributors.</figcaption></figure>
+    </section>
+    <section class="case-section case-summary" aria-labelledby="situation-title">
+      <p class="eyebrow">01 / Situation</p>
+      <div><h2 id="situation-title">Straight lines<br>flatter the city.</h2><p class="lead-copy">Most “nearest hospital” maps draw a circle. People walk along streets, around railway lines and across busy junctions. This project rebuilds an earlier Leaflet + Overpass app as an analyst-grade Web GIS, and measures how much the circle misleads.</p></div>
+      <div class="fact-grid"><article><span class="meta">Area</span><strong>Central Pune,<br>Shivajinagar–Peths</strong></article><article><span class="meta">Question</span><strong>Healthcare within<br>15 min · 1.2 km</strong></article><article><span class="meta">Services</span><strong>243 OSM features<br>in 18.7 km²</strong></article></div>
+    </section>
+    <section class="case-section approach-section" aria-labelledby="approach-title">
+      <div class="section-heading"><p class="eyebrow">02 / Approach</p><h2 id="approach-title">From OSM data<br>to a public map.</h2></div>
+      <ol class="approach-list"><li><span>01</span><div><h3>Model the city in PostGIS</h3><p>OpenStreetMap healthcare features, 12,835 buildings and a 13,134-node walking graph go into PostGIS in a metric CRS (EPSG:32643, UTM 43N) with GiST indexes, so every distance is in metres and every spatial query is index-backed.</p></div></li><li><span>02</span><div><h3>Measure access on the street network</h3><p>Walking isochrones and nearest-service distances use the OSMnx network at 4.8 km/h, and again at 3.6 km/h for older residents. Results are summarised on H3 hexagons at two resolutions, with building-footprint area as the population proxy.</p></div></li><li><span>03</span><div><h3>Publish through open standards</h3><p>GeoServer exposes WMS/WFS and a DEM coverage; pg_tileserv serves vector tiles and pg_featureserv serves OGC API – Features. All four services run in one Docker Compose stack.</p></div></li><li><span>04</span><div><h3>Ship it without a server</h3><p>A MapLibre GL JS client reads a single PMTiles file (built with tippecanoe) over HTTP range requests, so it can be hosted as a static site. Kubernetes manifests for a local kind cluster sit alongside.</p></div></li></ol>
+    </section>
+    <section id="results" class="case-section results-section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">03 / Results</p><h2 id="results-title">What the circle<br>gets wrong.</h2></div>
+      <div class="metric-row"><div class="metric"><strong>27%</strong><p>less area reachable on foot (13.7 km²) than straight-line buffers imply (18.7 km²)</p></div><div class="metric"><strong>11 / 30</strong><p>random points whose nearest service is a different one by walking than by straight line</p></div><div class="metric"><strong>7.6×</strong><p>worst case: 47 m as the crow flies, 357 m on foot (median ratio across points: 1.57×)</p></div><div class="metric"><strong>2.6% vs 0%</strong><p>of proxy population beyond 15 minutes at H3 res. 9 — by network, versus by buffer</p></div></div>
+      <p class="results-note"><strong>Slower walkers lose coverage.</strong> At 3.6 km/h (900 m), four res-9 hexagons drop out of coverage, including one holding about 21,700 m² of building footprint whose nearest service is 938 m away. Coverage lost: 0.9 percentage points at res. 9, 1.9 at res. 8.</p>
+      
+      <div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/walkability-worst-case.webp" alt="Street map showing a short straight line and a much longer walking route between a point and a clinic" loading="lazy"><figcaption>The worst case in the sample. Red: walking route (357 m). Dashed blue: the straight line the earlier project used (47 m).</figcaption></figure></div>
+    </section>
+    <section class="case-section data-section" aria-labelledby="data-title">
+      <p class="eyebrow">04 / Data &amp; method</p>
+      <div class="data-layout"><h2 id="data-title">Open data,<br>open services.</h2><div><p class="lead-copy">Every layer is reproducible from scripts in the repository: acquire and load, prepare the DEM, run the access analysis, publish to GeoServer, export to PMTiles.</p><dl class="data-list"><div><dt>Data</dt><dd>OpenStreetMap (ODbL) · SRTM 30 m DEM</dd></div><div><dt>Population</dt><dd>Building-footprint proxy (WorldPop optional)</dd></div><div><dt>Spatial</dt><dd>PostGIS · H3 · OSMnx · GeoPandas</dd></div><div><dt>Services</dt><dd>GeoServer · pg_tileserv · pg_featureserv</dd></div><div><dt>Client</dt><dd>MapLibre GL JS · PMTiles · Vite</dd></div></dl><ul class="tag-list" style="margin-top:1.5rem"><li>PostGIS</li><li>GeoServer</li><li>H3</li><li>OSMnx</li><li>MapLibre GL</li><li>PMTiles</li><li>Docker Compose</li><li>GitHub Actions</li></ul></div></div>
+    </section>
+    <section class="case-section reflection-section" aria-labelledby="reflection-title">
+      <p class="eyebrow">05 / Limits &amp; honesty</p>
+      <div class="reflection-layout"><h2 id="reflection-title">What it does<br>not claim.</h2><div><p>Built and checked locally in November 2026. Stated plainly:</p><ul class="limits-list"><li>Population is a proxy: percentages describe building footprint area, not people. WorldPop or ward census data would replace it.</li><li>The study area is a bounding box over central Pune, not registered wards, so there is no ward-level aggregation yet.</li><li>Facility completeness depends on OpenStreetMap tagging; some services carry no name tag at all.</li><li>The GitHub Pages deployment and the Kubernetes run were still to be completed when this page was written, so there is no public URL yet.</li></ul></div></div>
+    </section>
+  </main>
+  <footer class="site-footer contour-field"><p class="eyebrow">Next / Case study 03</p><h2>Hyper-Local Merchant Intelligence</h2><div class="case-next"><a class="footer-email" href="../hyperlocal-merchants/">Read the case study <span aria-hidden="true">↗</span></a></div><div class="footer-meta"><a href="../#projects">← All projects</a><a href="../">Portfolio</a><a href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div></footer>
+</body>
+</html>

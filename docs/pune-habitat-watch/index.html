@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A citizen-science Web GIS prototype for Pune: residents report potential mosquito habitats, reviewers assess evidence, and a satellite-derived suitability layer adds context. Django, GeoDjango, PostGIS, GeoServer, React and OpenLayers.">
+  <meta name="theme-color" content="#101916">
+  <title>Pune Habitat Watch — Manas Ranjan Patra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="monogram" href="../" aria-label="Manas Patra, home">MP<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="../#work">Work</a><a href="../#projects">Projects</a><a href="../#practice">Practice</a><a href="../#about">About</a><a href="../#contact">Contact</a><a class="nav-resume" href="../assets/manas-CV.pdf" download>Resume <span aria-hidden="true">↓</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="case-hero contour-field">
+      <div class="case-index"><span>Case study / 04</span><span>Pune, India · 2026</span></div>
+      <p class="kicker">Citizen science · Web GIS prototype · Semester 3</p>
+      <h1>Pune<br><em>Habitat Watch.</em></h1>
+      <div class="case-intro"><p>A citizen-science platform where residents report potential mosquito-breeding habitats, researchers review the evidence, and a satellite-derived suitability layer adds context. Built end to end as a local, synthetic-data prototype.</p><a class="button button-primary" href="#results">See the results <span aria-hidden="true">↘</span></a></div>
+      <figure class="case-figure"><img src="../assets/images/projects/habitat-map.webp" alt="Web app screenshot showing a grid map of Pune wards with coloured observation cells"><figcaption>Explore map: shared accepted observations in ~1 km cells over 2025 ward outlines, with the provisional satellite suitability layer. Every observation shown is synthetic.</figcaption></figure>
+    </section>
+    <section class="case-section case-summary" aria-labelledby="situation-title">
+      <p class="eyebrow">01 / Situation</p>
+      <div><h2 id="situation-title">Data people<br>can trust, and give.</h2><p class="lead-copy">Dengue habitat data is scarce at neighbourhood scale. This prototype designs the whole loop a pilot would need: report, research review, feedback, and a reward for useful, follow-up observations, with privacy and consent built into the data model.</p></div>
+      <div class="fact-grid"><article><span class="meta">Loop</span><strong>Report → review →<br>feedback → XP</strong></article><article><span class="meta">Stack</span><strong>Django · PostGIS ·<br>GeoServer · React</strong></article><article><span class="meta">Status</span><strong>Local prototype,<br>synthetic data</strong></article></div>
+    </section>
+    <section class="case-section approach-section" aria-labelledby="approach-title">
+      <div class="section-heading"><p class="eyebrow">02 / Approach</p><h2 id="approach-title">A pilot,<br>designed in full.</h2></div>
+      <ol class="approach-list"><li><span>01</span><div><h3>Design the data loop</h3><p>Citizens submit a photo and a location; reviewers record an outcome and feedback as append-only events. Rewards (5 / 3 / 2 XP, 20 XP weekly cap) are ledgered, reversible and exclude duplicate images.</p></div></li><li><span>02</span><div><h3>Protect participants</h3><p>Versioned consent events, coarse ~1 km public locations, metadata-stripped images with random filenames, consent withdrawal, invited accounts, and login throttling. GeoServer reads four privacy-safe SQL views through a read-only database role.</p></div></li><li><span>03</span><div><h3>Add the geography</h3><p>A February 2022–2025 Landsat suitability layer (NDWI, NDMI, NDVI, LST) in ~500 m cells, plus an exploratory AHP hazard × exposure model at 30 m from CHIRPS, ESA WorldCover, WorldPop and OSM water, published over WMS/WMTS/WFS/WCS.</p></div></li><li><span>04</span><div><h3>Test it end to end</h3><p>Backend tests run on PostGIS in the container, the GIS maths has its own pytest suite, and a Playwright script exercises the OpenLayers client: identify, ward dashboard, time slider, measure and swipe.</p></div></li></ol>
+    </section>
+    <section id="results" class="case-section results-section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">03 / Results</p><h2 id="results-title">Built and<br>tested.</h2></div>
+      <div class="metric-row"><div class="metric"><strong>46</strong><p>backend tests passing: workflow, spatial queries, consent, CSRF, login limits, demo/pilot isolation</p></div><div class="metric"><strong>17</strong><p>GIS tests passing: AHP weights, Landsat indices and masking, risk maths</p></div><div class="metric"><strong>16 / 16</strong><p>browser end-to-end checks, with no console errors or failed requests</p></div><div class="metric"><strong>0.018</strong><p>AHP consistency ratio for the hazard × exposure weights (below the 0.10 threshold)</p></div></div>
+      <p class="results-note"><strong>Built is not validated.</strong> The suitability and risk layers are exploratory. No entomological or case data exists in this project, and the dengue case counts shown are synthetic, so they cannot validate anything.</p>
+      
+      <div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/habitat-overview.webp" alt="Web app overview page with summary cards, a notice about the satellite layer and a map" loading="lazy"><figcaption>The citizen workspace: a clearly labelled local demo, satellite suitability notice, personal progress and a coarse community map.</figcaption></figure></div>
+    </section>
+    <section class="case-section data-section" aria-labelledby="data-title">
+      <p class="eyebrow">04 / Data &amp; method</p>
+      <div class="data-layout"><h2 id="data-title">Real pixels,<br>synthetic people.</h2><div><p class="lead-copy">The satellite layer uses real Landsat pixels. Everything about participants and dengue cases in the demo is synthetic and labelled that way in every layer, chart and table.</p><dl class="data-list"><div><dt>Backend</dt><dd>Django 6 · GeoDjango · PostGIS 17</dd></div><div><dt>OGC services</dt><dd>GeoServer 2.28 (WMS, WMTS, WFS, WCS)</dd></div><div><dt>Client</dt><dd>React · Vite · OpenLayers</dd></div><div><dt>Rasters</dt><dd>Landsat · CHIRPS · WorldCover · WorldPop</dd></div><div><dt>Ops</dt><dd>Docker Compose · nginx · Playwright</dd></div></dl><ul class="tag-list" style="margin-top:1.5rem"><li>Django</li><li>GeoDjango</li><li>PostGIS</li><li>GeoServer</li><li>OpenLayers</li><li>React</li><li>AHP</li><li>Landsat</li></ul></div></div>
+    </section>
+    <section class="case-section reflection-section" aria-labelledby="reflection-title">
+      <p class="eyebrow">05 / Limits &amp; honesty</p>
+      <div class="reflection-layout"><h2 id="reflection-title">What it does<br>not claim.</h2><div><p>The project’s own status file is explicit, and so is this page:</p><ul class="limits-list"><li>Local synthetic demonstration only: it is not deployed, has collected no real participant data and is not ready to.</li><li>Post-monsoon Landsat coverage was 0.2–12% and unusable, so the satellite baseline is February only, with no field validation.</li><li>Ward boundaries come from source-derived 2025 PMC electoral geometry, not a certified official boundary.</li><li>A real pilot would still need ethics approval, a retention policy, production hardening and an independent field evaluation.</li></ul></div></div>
+    </section>
+  </main>
+  <footer class="site-footer contour-field"><p class="eyebrow">Next / Case study 05</p><h2>EuroSAT: Eight Models, One Split</h2><div class="case-next"><a class="footer-email" href="../eurosat-benchmark/">Read the case study <span aria-hidden="true">↗</span></a></div><div class="footer-meta"><a href="../#projects">← All projects</a><a href="../">Portfolio</a><a href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div></footer>
+</body>
+</html>

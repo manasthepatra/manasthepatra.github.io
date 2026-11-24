@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A controlled comparison of eight deep-learning architectures on EuroSAT satellite scenes, with identical splits and training budgets: a scratch CNN versus seven ImageNet-pretrained backbones.">
+  <meta name="theme-color" content="#101916">
+  <title>EuroSAT: Eight Models, One Split — Manas Ranjan Patra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/case-study.css">
+  <link rel="stylesheet" href="../assets/css/projects.css">
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="case-study">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="monogram" href="../" aria-label="Manas Patra, home">MP<span>.</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+    <nav id="site-nav" aria-label="Primary navigation"><a href="../#work">Work</a><a href="../#projects">Projects</a><a href="../#practice">Practice</a><a href="../#about">About</a><a href="../#contact">Contact</a><a class="nav-resume" href="../assets/manas-CV.pdf" download>Resume <span aria-hidden="true">↓</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="case-hero contour-field">
+      <div class="case-index"><span>Case study / 05</span><span>Europe · Sentinel-2 · 2026</span></div>
+      <p class="kicker">Deep learning for remote sensing · MLRS mini project</p>
+      <h1>Eight models,<br><em>one split.</em></h1>
+      <div class="case-intro"><p>Does transfer learning really beat a small CNN on satellite scenes? A controlled comparison of eight architectures on EuroSAT, with identical splits and training settings, and the caveats stated up front.</p><a class="button button-primary" href="#results">See the results <span aria-hidden="true">↘</span></a></div>
+      <figure class="case-figure"><img src="../assets/images/projects/eurosat-comparison.webp" alt="Bar chart of test accuracy and macro-F1 for eight models, the first much lower than the rest"><figcaption>Held-out test accuracy and macro-F1 for all eight models on the same 4,050-patch test split.</figcaption></figure>
+    </section>
+    <section class="case-section case-summary" aria-labelledby="situation-title">
+      <p class="eyebrow">01 / Situation</p>
+      <div><h2 id="situation-title">One variable<br>at a time.</h2><p class="lead-copy">Land-cover inventories still lean on manual interpretation. Before asking which architecture is best, this project fixes everything else: the same stratified split, optimiser, schedule and early-stopping rule, so differences come from the model.</p></div>
+      <div class="fact-grid"><article><span class="meta">Data</span><strong>EuroSAT RGB ·<br>27,000 patches</strong></article><article><span class="meta">Classes</span><strong>10 land-use /<br>land-cover scenes</strong></article><article><span class="meta">Split</span><strong>70 / 15 / 15,<br>stratified, seed 42</strong></article></div>
+    </section>
+    <section class="case-section approach-section" aria-labelledby="approach-title">
+      <div class="section-heading"><p class="eyebrow">02 / Approach</p><h2 id="approach-title">Fair comparison,<br>by construction.</h2></div>
+      <ol class="approach-list"><li><span>01</span><div><h3>Fix the experiment</h3><p>One saved 18,900 / 4,050 / 4,050 split (splits.json), AdamW at 3e-4, batch 64, at most 20 epochs, early stopping on validation macro-F1 with patience 5, flips as the only augmentation.</p></div></li><li><span>02</span><div><h3>Compare like with like</h3><p>A compact three-convolution CNN trained from scratch (94,538 parameters) against seven fine-tuned ImageNet backbones: ResNet-18, ResNet-50, DenseNet-121, MobileNetV3-Small, EfficientNet-B0, ConvNeXt-Tiny and Swin-T.</p></div></li><li><span>03</span><div><h3>Select honestly</h3><p>Models are chosen on validation macro-F1 and the test set is evaluated once. Per-class precision, recall and F1, confusion matrices, learning curves and a majority-class baseline (11.1%) accompany every run.</p></div></li></ol>
+    </section>
+    <section id="results" class="case-section results-section" aria-labelledby="results-title">
+      <div class="section-heading"><p class="eyebrow">03 / Results</p><h2 id="results-title">Pretraining<br>is the story.</h2></div>
+      <div class="metric-row"><div class="metric"><strong>80.1%</strong><p>test accuracy for the CNN trained from scratch (macro-F1 0.787)</p></div><div class="metric"><strong>98.1%</strong><p>highest test accuracy: ConvNeXt-Tiny (macro-F1 0.981)</p></div><div class="metric"><strong>97.2%</strong><p>MobileNetV3-Small, with 1.5 M parameters trained in 6.3 minutes</p></div><div class="metric"><strong>+17 pts</strong><p>gap between scratch training and the weakest pretrained model</p></div></div>
+      <p class="results-note"><strong>Validation picked EfficientNet-B0</strong> (validation macro-F1 0.983, test accuracy 97.95%), not the test-set leader. That is the point of selecting on validation. More than half of its remaining errors are vegetation look-alikes: 48 of its 83 mistakes are confusions among AnnualCrop, HerbaceousVegetation, PermanentCrop, Pasture and Forest.</p>
+      <div class="result-table-wrap"><table class="result-table"><caption>All eight models · same split · same settings</caption><thead><tr><th>Model</th><th>Accuracy</th><th>Macro-F1</th><th>Parameters</th><th>Train min</th></tr></thead><tbody><tr class="is-baseline"><td>Compact CNN (scratch)</td><td>0.8005</td><td>0.7872</td><td>94,538</td><td>10.5</td></tr><tr class=""><td>ResNet-18</td><td>0.9723</td><td>0.9714</td><td>11.2 M</td><td>8.4</td></tr><tr class=""><td>DenseNet-121</td><td>0.9746</td><td>0.9732</td><td>7.0 M</td><td>18.4</td></tr><tr class=""><td>MobileNetV3-Small</td><td>0.9723</td><td>0.9713</td><td>1.5 M</td><td>6.3</td></tr><tr class=""><td>EfficientNet-B0 (validation pick)</td><td>0.9795</td><td>0.9786</td><td>4.0 M</td><td>10.4</td></tr><tr class=""><td>ResNet-50</td><td>0.9795</td><td>0.9788</td><td>23.5 M</td><td>13.5</td></tr><tr class="is-best"><td>ConvNeXt-Tiny (test leader)</td><td>0.9810</td><td>0.9805</td><td>27.8 M</td><td>17.1</td></tr><tr class=""><td>Swin-T</td><td>0.9696</td><td>0.9691</td><td>27.5 M</td><td>12.9</td></tr></tbody></table></div>
+      <div class="figure-grid is-single"><figure class="case-figure"><img src="../assets/images/projects/eurosat-confusion.webp" alt="Confusion matrix with a strong diagonal and small off-diagonal counts among crop classes" loading="lazy"><figcaption>EfficientNet-B0 confusion matrix on the 4,050 held-out patches.</figcaption></figure></div>
+    </section>
+    <section class="case-section data-section" aria-labelledby="data-title">
+      <p class="eyebrow">04 / Data &amp; method</p>
+      <div class="data-layout"><h2 id="data-title">Reproducible<br>by design.</h2><div><p class="lead-copy">Each run saves its configuration, split manifest, learning curves, predictions and checkpoint, so every number on this page can be traced to a file.</p><dl class="data-list"><div><dt>Dataset</dt><dd>EuroSAT RGB (Sentinel-2 derived)</dd></div><div><dt>Framework</dt><dd>PyTorch · torchvision</dd></div><div><dt>Hardware</dt><dd>NVIDIA GPU, CUDA 12.6</dd></div><div><dt>Metrics</dt><dd>Accuracy · macro-F1 · per-class P/R/F1</dd></div><div><dt>Outputs</dt><dd>Checkpoints · splits · configs · report</dd></div></dl><ul class="tag-list" style="margin-top:1.5rem"><li>PyTorch</li><li>torchvision</li><li>Transfer learning</li><li>ResNet</li><li>EfficientNet</li><li>ConvNeXt</li><li>Swin</li><li>CUDA</li></ul></div></div>
+    </section>
+    <section class="case-section reflection-section" aria-labelledby="reflection-title">
+      <p class="eyebrow">05 / Limits &amp; honesty</p>
+      <div class="reflection-layout"><h2 id="reflection-title">What it does<br>not claim.</h2><div><p>The comparison’s own write-up says this directly:</p><ul class="limits-list"><li>One seed and an image-level split: nearby or visually related patches can sit in both train and test, so scores are optimistic.</li><li>The seven pretrained models span 97.0–98.1%, about 46 images out of 4,050. A single seed cannot rank them.</li><li>Only the CNN is trained from scratch, so pretraining and architecture effects are confounded.</li><li>64 × 64 RGB patches over Europe: no geographic holdout, no multispectral bands, and no claim about India.</li></ul></div></div>
+    </section>
+  </main>
+  <footer class="site-footer contour-field"><p class="eyebrow">Next / Case study 06</p><h2>Earth Vision ML</h2><div class="case-next"><a class="footer-email" href="../earth-vision-ml/">Read the case study <span aria-hidden="true">↗</span></a></div><div class="footer-meta"><a href="../#projects">← All projects</a><a href="../">Portfolio</a><a href="mailto:manaspatra1999@gmail.com">manaspatra1999@gmail.com</a><span>© <span id="year"></span> Manas Ranjan Patra</span></div></footer>
+</body>
+</html>
